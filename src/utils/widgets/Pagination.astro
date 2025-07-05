@@ -1,0 +1,33 @@
+---
+import type { Page } from "astro";
+const { page } = Astro.props as { page: Page<any> };
+---
+
+<div class="pagination">
+  {
+    page.url.prev && (
+      <a href={page.url.prev}>
+        <button>Previous</button>
+      </a>
+    )
+  }
+  <span>
+    Page {page.currentPage} of {page.lastPage}
+  </span>
+  {
+    page.url.next && (
+      <a href={page.url.next}>
+        <button>Next</button>
+      </a>
+    )
+  }
+</div>
+
+<style lang="scss" is:global>
+  .pagination {
+    margin-top: auto;
+
+    justify-content: center;
+    align-items: end;
+  }
+</style>

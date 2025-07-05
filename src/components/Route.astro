@@ -1,0 +1,120 @@
+---
+
+---
+
+<div class="nav-link">
+  <a href="/">Home</a>
+  <a href="/work">Work</a>
+  <a href="/blog">Blog</a>
+  <a href="/contact">Contact</a>
+  <div class="nav-background"></div>
+</div>
+
+<style>
+  .nav-link {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+
+  }
+
+  .nav-link a {
+    text-decoration: none;
+    color: var(--text);
+    font-size: large;
+    padding: 0.6rem;
+    position: relative;
+    z-index: 1;
+    /* cursor: pointer; */
+  }
+
+  .nav-link a:hover {
+    color: var(--text-active);
+  }
+
+  .nav-link a.active {
+    color: var(--text-active);
+    font-weight: var(--font-weight-6);
+  }
+
+  .nav-background {
+    position: absolute;
+    top: 0;
+    border: var(--bor2);
+    border-radius: var(--br);
+    transition: all 0.25s ease;
+    pointer-events: none;
+    opacity: 1;
+  }
+
+  /* İlk yükleme için animasyon */
+  .nav-link a.active + .nav-background {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:before-preparation", (event) => {
+    const originalLoader = event.loader;
+
+    event.loader = async function () {
+      await new Promise((resolve) => setTimeout(resolve, 250));
+      return originalLoader();
+    };
+  });
+
+  function setupNavigation() {
+    const nav = document.querySelector(".nav-link");
+    if (!nav) return;
+
+    const navLinks = nav.querySelectorAll("a");
+    const navBackground = nav.querySelector(".nav-background") as HTMLElement;
+    if (!navBackground) return;
+
+    const currentUrl = window.location.pathname;
+    function positions(element, backgroundElement) {
+      const rect = element.getBoundingClientRect();
+      const nav = element.parentElement.getBoundingClientRect();
+      const left = rect.left - nav.left;
+      
+
+      backgroundElement.style.width = `${rect.width}px`;
+      backgroundElement.style.height = `${rect.height}px`;
+      backgroundElement.style.left = `${left}px`;
+
+      
+    }
+
+    let matchFound = false;
+    navLinks.forEach((link) => {
+      if (link.getAttribute("href") === currentUrl) {
+        link.classList.add("active");
+        positions(link, navBackground);
+        navBackground.style.opacity = "1";
+        matchFound = true;
+      }
+    });
+
+    if (!matchFound) {
+      navBackground.style.opacity = "0";
+    }
+
+    navLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        const href = link.getAttribute("href");
+        if (!href) return;
+        const currentActive = nav.querySelector("a.active");
+        if (currentActive) {
+          currentActive.classList.remove("active");
+        }
+        link.classList.add("active");
+
+        positions(link, navBackground);
+      });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", setupNavigation);
+  document.addEventListener("astro:after-swap", setupNavigation);
+</script>

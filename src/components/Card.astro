@@ -1,0 +1,109 @@
+---
+import { Image } from "astro:assets";
+import { Info } from "../Informations/Infos.astro";
+import { Icon } from "astro-icon/components";
+import "../style/global.css";
+---
+
+<div class="container">
+  <div class="sabit">
+    <div class="icerik">
+      <!-- <Image src={Profile} format="webp" alt="resim" /> -->
+       <Image src={Info.image[0].url} alt={Info.image[0].alt} width=400 height=300 />
+    </div>
+    <h2>{Info.name}</h2>
+    <p class="parag">{Info.job}</p>
+    <p>{Info.desc}</p>
+    <span class="sosyal"
+      ><ul>
+        {
+          Info.social.map((item: any) => (
+            <li>
+              <Icon name={item.icon} />
+              <a href={item.link}>{item.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </span>
+  </div>
+</div>
+
+<style lang="scss">
+  .container {
+    margin: 0 0px 1px 0;
+    width: var(--size-fluid-9);
+    display: flex;
+    flex-direction: column;
+    /*  border: var(--bor); */
+    padding: var(--size-2);
+    & .icerik {
+      display: flex;
+      justify-content: center;
+    }
+    & .sabit {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 2rem 0;
+      max-width: 100%;
+      position: sticky;
+      top: 10px;
+    }
+
+    & h2 {
+      font-size: var(--size-fluid-3);
+      margin-bottom: -15px;
+    }
+    & p.parag {
+      font-size: var(--size-fluid-2);
+    }
+    & p {
+      font-size: var(--size-relative-6);
+    }
+    & span.sosyal ul,
+    li {
+      display: flex;
+      justify-content: center;
+    }
+    & [data-icon] {
+      padding-right: var(--size-1);
+      width: 24px;
+    }
+  }
+
+  @container body (max-width: 768px) {
+    .container {
+      width: 95%;
+      order: 2;
+      & .sabit {
+        display: grid;
+        grid-template-columns: 30% 5fr;
+        gap: 20px;
+        & > .icerik,
+        img {
+          grid-row: span 5;
+          max-width: 10rem;
+        }
+      }
+      & h2 {
+        font-size: var(--size-fluid-4);
+      }
+      & p.parag {
+        font-size: var(--size-6);
+        margin-bottom: var(--size-fluid-3);
+      }
+    }
+  }
+  @container body (max-width: 480px) {
+    .sabit {
+      row-gap: 6%;
+      column-gap: 10px;
+      & > .icerik img {
+        max-width: 8rem;
+      }
+    }
+  }
+</style>

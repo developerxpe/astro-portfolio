@@ -1,0 +1,13 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Projects } from "../Informations/Works.astro";
+---
+
+<Layout pageTitle="Work">
+    {Projects.map(Projects => (
+        <li>
+            <h2>{Projects.title}</h2>
+            <p>{Projects.description}</p>
+        </li>
+    ))}
+</Layout>

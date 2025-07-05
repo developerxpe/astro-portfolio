@@ -1,0 +1,76 @@
+---
+import Metainf from "./Meta.astro";
+import Header from "../components/global/Header.astro";
+import Footer from "../components/global/Footer.astro";
+import Card from "../components/Card.astro";
+import "../style/global.css";
+import { ClientRouter } from "astro:transitions";
+
+interface Props {
+  pageTitle?: string;
+  description?: string;
+}
+
+const { pageTitle = "My Blog", description = "A simple blog" } =
+  Astro.props as Props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <Metainf />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <!-- <link rel="stylesheet" href="/src/style/global.css" /> -->
+  </head><body
+    ><ClientRouter />
+    <section>
+      <Card />
+      <div class="main">
+        <Header />
+        <slot />
+      </div>
+    </section>
+    <Footer />
+  </body>
+</html>
+
+<style lang="scss">
+  section {
+    margin: 2rem 0 2rem 0;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+    height: 50%;
+    padding: 10px;
+    gap: var(--size-3);
+    border: var(--bor);
+    & .main {
+      width: var(--size-content-6);
+  /*     max-width: 100%; */
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-2) 0;
+    }
+  }
+  @container body (max-width: 768px) {
+    section {
+      flex-wrap: wrap;
+    }
+    .main {
+      max-width: 100%;
+      order: 1;
+    }
+  }
+  @container body (max-width: 480px) {
+    section {
+      flex-wrap: wrap;
+    }
+    .main {
+      max-width: 100%;
+      order: 1;
+    }
+  }
+</style>

@@ -1,0 +1,8 @@
+{
+  "atDirectives": [
+    {
+      "name": "@custom-media",
+      "description": "Define custom media queries in PostCSS."
+    }
+  ]
+}
