@@ -1,0 +1,70 @@
+---
+import { getBlog, category } from "../../utils/blog.js";
+import type { PaginateFunction, Page } from 'astro';
+import Layout from "../../layouts/Layout.astro";
+import BlogPost from "../../components/BlogPost.astro";
+import Pagination from "../../utils/widgets/Pagination.astro";
+
+
+export const prerender = true;
+
+export async function getStaticPaths({paginate}: {paginate: PaginateFunction}) {
+  return getBlog(paginate);
+}
+
+const { page } = Astro.props as { page: Page<any> };
+---
+
+<Layout pageTitle="Blog">
+  <div class="catcon">
+  {category.map((category) => (
+    <p class="category">
+      <a href={`/category/${category}`}><button>{category}</button></a>
+    </p>
+  ))
+  }
+  </div>
+<div class="grid-container">
+    {
+      page.data.map((post) => (
+        <BlogPost
+          url={`/posts/${post.id}/`}
+          title={post.data.title}
+          image={post.data.image.url}
+          description={post.data.description}
+          pubDate={post.data.pubDate}
+        />
+        <line class="line"></line>
+      ))
+    }
+</div>
+  <Pagination page={page} />
+  </Layout
+>
+
+<style lang="scss" is:global>
+  .catcon {
+    display: inline-flex;
+    overflow-x: scroll;
+    width: 100%;
+     &::-webkit-scrollbar {
+      display: none;
+    }
+    white-space: nowrap;
+    & > .category a button {
+      color: var(--text);
+    }
+    
+  }
+  p.category {
+    margin: 0.25rem;
+    padding: 0.25rem;
+    overflow: visible;
+    width: auto;
+    border: var(--bor2);
+   flex-wrap: nowrap;
+   
+    
+  }
+</style>
+

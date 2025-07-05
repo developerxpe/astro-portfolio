@@ -1,0 +1,21 @@
+---
+import Layout from "./Layout.astro";
+const { frontmatter } = Astro.props;
+---
+
+<Layout>
+  <h1 transition:name={`title-${Astro.url.pathname}`}>{frontmatter.title}</h1>
+  <p>{frontmatter.pubDate.toLocaleDateString()}</p>
+  <p><em>{frontmatter.description}</em></p>
+  <p>Written by: {frontmatter.author}</p>
+  <img
+    class="postimg"
+    transition:name={`image-${Astro.url.pathname}`}
+    src={frontmatter.image.url}
+    width="300"
+    alt={frontmatter.image.alt}
+  />
+  <slot />
+</Layout>
+
+

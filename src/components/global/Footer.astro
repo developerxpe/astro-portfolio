@@ -1,0 +1,39 @@
+---
+
+---
+
+<footer>
+  <small>
+    <p>
+      Copyright &copy; <span id="copyright"></span> | If you need you can use :)
+    </p>
+  </small>
+</footer>
+
+<script>
+  const cr = document.querySelector("#copyright");
+  if (cr) {
+    cr.textContent = new Date().getFullYear().toString();
+  }
+</script>
+
+<style>
+  footer {
+    margin-top: auto;
+    padding: 10px;
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    /*   position: sticky;
+    bottom: 0; */
+    width: 100%;
+    align-items: center;
+    color: var(--text);
+    z-index: 9;
+   /*  background-image: var(--gradient-8); */
+    & small {
+      color: var(--text);
+    }
+  }
+</style>

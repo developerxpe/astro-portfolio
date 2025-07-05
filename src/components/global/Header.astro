@@ -1,0 +1,33 @@
+---
+import { ClientRouter } from "astro:transitions";
+import Route from "../Route.astro";
+import Theme from "../Theme.astro";
+
+---
+
+<header>
+  <div></div>
+  <Route />
+  <Theme />
+</header>
+<style>
+  header {
+    padding: 1rem 0.25rem;
+    display: flex;
+    justify-content: end;
+    column-gap: 1px;
+    align-items: center;
+    border: var(--bor);
+    
+  }
+  @container body (max-width: 768px) {
+    header {
+      justify-content: space-between;
+    }
+  }
+  @container body (max-width: 480px) {
+    header {
+      justify-content: space-between;
+    }
+  }
+</style>

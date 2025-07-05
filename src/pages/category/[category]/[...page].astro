@@ -1,0 +1,60 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../../layouts/Layout.astro";
+import BlogPost from "../../../components/BlogPost.astro";
+import Pagination from "../../../utils/widgets/Pagination.astro";
+
+export async function getStaticPaths({ paginate }) {
+  const allPosts = await getCollection("blog");
+  const sortedPosts = allPosts
+    .filter((post) => post.data.pubDate)
+    .sort(
+      (a, b) =>
+        new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
+    );
+    
+  const uniqueCategories = [
+    ...new Set(sortedPosts.map((post) => post.data.category).flat()),
+  ];
+
+  return uniqueCategories.flatMap((category) => {
+    const filteredPosts = sortedPosts.filter((post) =>
+      post.data.category.includes(category)
+    );
+    
+    return paginate(filteredPosts, {
+      params: { category },
+      pageSize: 2,
+      props: { category }
+    });
+  });
+}
+
+const { page } = Astro.props;
+const { category } = Astro.params;
+---
+
+<Layout pageTitle={`Category: ${category}`}>
+  <p>Posts category with {category}</p>
+  <div class="grid-container">
+    {
+      page.data.map((post) => (
+        <BlogPost
+          url={`/posts/${post.id}/`}
+          title={post.data.title}
+          image={post.data.image?.url}
+          description={post.data.description}
+          pubDate={post.data.pubDate}
+        />
+        <line class="line"></line>
+      ))
+    }
+  </div>
+
+  <Pagination page={page} />
+
+</Layout>
+
+<style lang="scss" is:global>
+
+</style>
