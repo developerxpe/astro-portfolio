@@ -59,12 +59,16 @@ const { page } = Astro.props as { page: Page<any> };
   }
   p.tags {
     margin: 0.25rem;
-    padding: 0.25rem;
+    padding: 0.4rem;
     overflow: visible;
     width: auto;
     border: var(--bor2);
-   flex-wrap: nowrap;
-   
-    
+    border-radius: var(--br);
+    flex-wrap: nowrap;
+    transition: var(--trns);
+    &:hover {
+      scale: 1.06;
+      transition: var(--trns);
+    }
   }
 </style>
