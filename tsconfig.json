@@ -3,6 +3,10 @@
   "compilerOptions": {
     "strictNullChecks": true,
     "allowJs": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
    "include": [
     ".astro/types.d.ts",
@@ -10,6 +14,6 @@
   ],
   "exclude": [
     "dist",
-    "category"
-  ],
+    "tags"
+  ]
 }

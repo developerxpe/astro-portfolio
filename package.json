@@ -13,14 +13,20 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@astrojs/partytown": "^2.1.4",
+    "@astrojs/react": "^4.3.0",
     "@iconify-json/mdi": "^1.2.3",
-    "astro": "5.7.10",
+    "@tabler/icons": "^3.34.0",
+    "@tailwindcss/vite": "^4.1.11",
+    "astro": "^5.11.0",
     "astro-icon": "^1.1.5",
     "autoprefixer": "^10.4.20",
     "cssnano": "^7.0.6",
+    "dlx": "^0.2.1",
     "postcss-custom-media": "^11.0.5",
     "sass": "^1.85.1",
     "scss": "^0.2.4",
+    "slugify": "^1.6.6",
     "yarn": "^1.22.22"
   },
   "devDependencies": {

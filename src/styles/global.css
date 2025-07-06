@@ -28,8 +28,10 @@
 
   /* Border */
   --bor: 1px solid red;
-  --bor2: 2px solid #575757;
+  --bor2: 2px solid #a1a1a185;
   --br: 8px;
+  /* Transition */
+  --trns: all 0.3s ease-in-out;
 
   --font-weight-1: 100;
   --font-weight-2: 200;
@@ -136,6 +138,7 @@
   --button-hv: #d9d9d9;
   --bg-img: var(--gradient-9);
 }
+
 *,
 *::before,
 *::after {

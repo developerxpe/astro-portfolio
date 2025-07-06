@@ -1,15 +1,16 @@
 ---
-import { getBlog, category } from "../../utils/blog.js";
-import type { PaginateFunction, Page } from 'astro';
+import { getBlogPagination, tags } from "../../utils/blog.js";
+import type { Page } from 'astro';
 import Layout from "../../layouts/Layout.astro";
 import BlogPost from "../../components/BlogPost.astro";
 import Pagination from "../../utils/widgets/Pagination.astro";
+import { toSlug } from "../../utils/blog.js";
 
 
 export const prerender = true;
 
-export async function getStaticPaths({paginate}: {paginate: PaginateFunction}) {
-  return getBlog(paginate);
+export async function getStaticPaths({paginate}) {
+  return getBlogPagination(paginate);
 }
 
 const { page } = Astro.props as { page: Page<any> };
@@ -17,9 +18,9 @@ const { page } = Astro.props as { page: Page<any> };
 
 <Layout pageTitle="Blog">
   <div class="catcon">
-  {category.map((category) => (
-    <p class="category">
-      <a href={`/category/${category}`}><button>{category}</button></a>
+  {tags.map((tags) => (
+    <p class="tags">
+      <a href={`/tags/${toSlug(tags)}`}><button>{tags}</button></a>
     </p>
   ))
   }
@@ -28,7 +29,7 @@ const { page } = Astro.props as { page: Page<any> };
     {
       page.data.map((post) => (
         <BlogPost
-          url={`/posts/${post.id}/`}
+          url={`/blog/posts/${post.id}/`}
           title={post.data.title}
           image={post.data.image.url}
           description={post.data.description}
@@ -51,12 +52,12 @@ const { page } = Astro.props as { page: Page<any> };
       display: none;
     }
     white-space: nowrap;
-    & > .category a button {
+    & > .tags a button {
       color: var(--text);
     }
     
   }
-  p.category {
+  p.tags {
     margin: 0.25rem;
     padding: 0.25rem;
     overflow: visible;
@@ -67,4 +68,3 @@ const { page } = Astro.props as { page: Page<any> };
     
   }
 </style>
-

@@ -2,196 +2,194 @@
 const { title, image, url, description, pubDate } = Astro.props;
 ---
 
-
-  <div class="card">
-    <div class="resim">
-      <a href={url}>
-        <img
-          class="blogimg"
-          src={image}
-          alt={image.alt}
-          transition:name={`image-${url}`}
-        />
-      </a>
-    </div>
-
-    <div class="baslik">
-      <a href={url} transition:name={`title-${url}`}><h2>{title}</h2></a>
-    </div>
-    <div class="dategrid">
-      <p class="date">{pubDate?.toLocaleDateString()}</p>
-    </div>
-    <a href={url} class="aciklama"
-      ><div><p>{description}</p></div>
-      <a href={url} class="gozat"><button>Göz At</button></a>
+<div class="card">
+  <div class="resim">
+    <a href={url}>
+      <img
+        class="blogimg"
+        src={image}
+        alt={image.alt}
+        transition:name={`image-${url}`}
+      />
     </a>
-
-    <script>
-      document.addEventListener("astro:page-load", () => {
-        const images = document.querySelectorAll("img");
-        images.forEach((img) => {
-          img.onerror = function () {
-            this.onerror = null;
-            this.src = "/src/assets/fallback.png";
-          };
-        });
-      });
-    </script>
   </div>
 
-  <style lang="scss" is:global>
-    .grid-container {
+  <div class="baslik">
+    <a href={url} transition:name={`title-${url}`}><h2>{title}</h2></a>
+  </div>
+  <div class="dategrid">
+    <p class="date">{pubDate?.toLocaleDateString()}</p>
+  </div>
+  <a href={url} class="aciklama"
+    ><div><p>{description}</p></div>
+    <a href={url} class="gozat"><button>Göz At</button></a>
+  </a>
+
+  <script>
+    document.addEventListener("astro:page-load", () => {
+      const images = document.querySelectorAll("img");
+      images.forEach((img) => {
+        img.onerror = function () {
+          this.onerror = null;
+          this.src = "/src/assets/fallback.png";
+        };
+      });
+    });
+  </script>
+</div>
+
+<style lang="scss" is:global>
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 50px 30px;
+    margin: 20px auto;
+    max-width: 750px;
+    width: 100%;
+    & > .card {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 50px 30px;
-      margin: 20px auto;
-      max-width: 750px;
-      width: 100%;
-      & > .card {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0px 5px;
-        text-align: center;
-        & .dategrid {
-          text-align: start;
-          & > p.date {
-            font-size: var(--font-size-0);
-          }
-        }
-      }
-      & > .card > .resim {
-        grid-row: span 3;
-        align-self: center;
-        margin-top: 10px;
-      }
-      & > .card > .baslik {
-        grid-column: 2 / 4;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-right: 10px;
-      }
-      & > .card > .aciklama {
-        grid-column: 2 / 4;
-        text-align: start;
-        height: 50px;
-      }
-    }
-    a.gozat {
-      display: none;
-    }
-
-    @container body (max-width: 768px) {
-      .grid-container {
-        grid-template-columns: 1fr;
-        gap: 10px;
-      }
-      .grid-container > .card {
-        display: grid;
-        grid-template-columns: 1fr 2fr 1fr;
-        gap: 0;
-        text-align: center;
-        & h2 {
-          font-size: var(--font-size-4);
-        }
-        & .dategrid > p.date {
-          font-size: var(--font-size-2);
-        }
-      }
-      .grid-container > .card > .resim {
-        grid-row: 2 / 4;
-        align-self: center;
-        text-align: start;
-      }
-      .grid-container > .card > .baslik {
-        grid-column: 1 / 3;
-        display: flex;
-        align-items: center;
-      }
-      .grid-container > .card > .dategrid {
-        grid-column: 50px;
-        margin-left: auto;
-      }
-
-      .grid-container > .card > .aciklama {
-        grid-column: span 2;
-        text-align: start;
-        padding: 15px 5px;
-        height: 50px;
-        margin-bottom: 10px; //overflow
-      }
-      .grid-container > .card > a.gozat {
-        grid-column: 2 / 4;
-        justify-self: end;
-        align-content: center;
-        margin-right: 10px;
-        display: inline;
-        font-size: var(--font-size-fluid-0);
-        & button {
-          color: var(--text);
-          border: var(--bor2);
-          padding: 5px 20px;
-          margin-top: 20px;
-        }
-      }
-    }
-    .line {
-      display: none;
-    }
-    @container body (max-width: 768px) {
-      .line {
-        display: inline;
-        background: var(--text);
-        width: 95%;
-        height: 0.1px;
-        justify-self: center;
-        opacity: 0.25;
-      }
-    }
-    .pagination {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0px 5px;
       text-align: center;
-      margin-top: auto;
+      & .dategrid {
+        text-align: start;
+        & > p.date {
+          font-size: var(--font-size-0);
+        }
+      }
+    }
+    & > .card > .resim {
+      grid-row: span 3;
+      align-self: center;
+      margin-top: 10px;
+    }
+    & > .card > .baslik {
+      grid-column: 2 / 4;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-right: 10px;
+    }
+    & > .card > .aciklama {
+      grid-column: 2 / 4;
+      text-align: start;
+      height: 50px;
+    }
+  }
+  a.gozat {
+    display: none;
+  }
+
+  @container body (max-width: 768px) {
+    .grid-container {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .grid-container > .card {
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      gap: 0;
+      text-align: center;
+      & h2 {
+        font-size: var(--font-size-4);
+      }
+      & .dategrid > p.date {
+        font-size: var(--font-size-2);
+      }
+    }
+    .grid-container > .card > .resim {
+      grid-row: 2 / 4;
+      align-self: center;
+      text-align: start;
+    }
+    .grid-container > .card > .baslik {
+      grid-column: 1 / 3;
+      display: flex;
+      align-items: center;
+    }
+    .grid-container > .card > .dategrid {
+      grid-column: 50px;
+      margin-left: auto;
+    }
+
+    .grid-container > .card > .aciklama {
+      grid-column: span 2;
+      text-align: start;
+      padding: 15px 5px;
+      height: 50px;
+      margin-bottom: 10px; //overflow
+    }
+    .grid-container > .card > a.gozat {
+      grid-column: 2 / 4;
+      justify-self: end;
+      align-content: center;
+      margin-right: 10px;
+      display: inline;
+      font-size: var(--font-size-fluid-0);
       & button {
         color: var(--text);
         border: var(--bor2);
         padding: 5px 20px;
-        width: 120px;
+        margin-top: 20px;
       }
     }
+  }
+  .line {
+    display: none;
+  }
+  @container body (max-width: 768px) {
+    .line {
+      display: inline;
+      background: var(--text);
+      width: 95%;
+      height: 0.1px;
+      justify-self: center;
+      opacity: 0.25;
+    }
+  }
+  .pagination {
+    text-align: center;
+    margin-top: auto;
+    & button {
+      color: var(--text);
+      border: var(--bor2);
+      padding: 5px 20px;
+      width: 120px;
+    }
+  }
 
-    .page-indicator {
-      text-align: center;
-      margin: 0 auto 20px;
-      font-size: var(--font-size-2);
-      opacity: 0.8;
+  .page-indicator {
+    text-align: center;
+    margin: 0 auto 20px;
+    font-size: var(--font-size-2);
+    opacity: 0.8;
 
-      .current-page {
-        display: inline-block;
-        padding: 0 8px;
+    .current-page {
+      display: inline-block;
+      padding: 0 8px;
+      font-weight: bold;
+      color: var(--text);
+    }
+
+    .page-link {
+      display: inline-block;
+      padding: 0 8px;
+      text-decoration: none;
+      color: var(--text);
+      opacity: 0.7;
+      transition: opacity 0.2s ease;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &.active {
         font-weight: bold;
-        color: var(--text);
-      }
-
-      .page-link {
-        display: inline-block;
-        padding: 0 8px;
-        text-decoration: none;
-        color: var(--text);
-        opacity: 0.7;
-        transition: opacity 0.2s ease;
-
-        &:hover {
-          opacity: 1;
-        }
-
-        &.active {
-          font-weight: bold;
-          opacity: 1;
-          color: var(--accent, #333);
-          cursor: default;
-          pointer-events: none;
-        }
+        opacity: 1;
+        color: var(--accent, #333);
+        cursor: default;
+        pointer-events: none;
       }
     }
-  </style>
-</div>
+  }
+</style>

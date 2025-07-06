@@ -1,9 +1,8 @@
 ---
-import Metainf from "./Meta.astro";
 import Header from "../components/global/Header.astro";
 import Footer from "../components/global/Footer.astro";
 import Card from "../components/Card.astro";
-import "../style/global.css";
+import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
 
 interface Props {
@@ -17,12 +16,15 @@ const { pageTitle = "My Blog", description = "A simple blog" } =
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <Metainf />
-    <title>{pageTitle}</title>
-    <meta name="description" content={description} />
-    <!-- <link rel="stylesheet" href="/src/style/global.css" /> -->
-  </head><body
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="generator" content={Astro.generator} />
+  <meta name="color-scheme" content="light dark" />
+  <title>{pageTitle}</title>
+  <meta name="description" content={description} />
+  <!-- <link rel="stylesheet" href="/src/style/global.css" /> -->
+  <body
     ><ClientRouter />
     <section>
       <Card />
@@ -48,7 +50,7 @@ const { pageTitle = "My Blog", description = "A simple blog" } =
     border: var(--bor);
     & .main {
       width: var(--size-content-6);
-  /*     max-width: 100%; */
+      /*     max-width: 100%; */
       height: auto;
       display: flex;
       flex-direction: column;
