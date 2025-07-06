@@ -1,3 +1,4 @@
+import tailwindcss from "@tailwindcss/vite";
 // @ts-check
 import { defineConfig } from "astro/config";
 
@@ -5,7 +6,7 @@ import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
-   image: {
+	image: {
     domains: ["astro.build"],
   },
   devToolbar: {
@@ -13,4 +14,7 @@ export default defineConfig({
   },
 
   integrations: [icon()],
+	vite: {
+		plugins: [tailwindcss()],
+	},
 });
