@@ -21,7 +21,7 @@ export async function getSortedPosts() {
 export async function getBlogPagination(paginate) {
   const sortedPosts = await getSortedPosts();
   return paginate(sortedPosts, {
-    pageSize: 2,
+    pageSize: 4,
   });
 }
 

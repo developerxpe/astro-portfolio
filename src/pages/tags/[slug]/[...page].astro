@@ -16,7 +16,7 @@ const { page, tags } = Astro.props;
   <div class="grid-container">
     {
       page.data.map((post) => (
-        <BlogPost
+        <BlogPost 
           url={`/blog/posts/${post.id}/`}
           title={post.data.title}
           image={post.data.image?.url}
@@ -29,7 +29,6 @@ const { page, tags } = Astro.props;
   </div>
 
   <Pagination page={page} />
-
 </Layout>
 
 <style lang="scss" is:global>

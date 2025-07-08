@@ -15,7 +15,11 @@ const { title, image, url, description, pubDate } = Astro.props;
   </div>
 
   <div class="baslik">
-    <a href={url} transition:name={`title-${url}`}><h2>{title}</h2></a>
+    <a href={url} transition:name={`title-${url}`}
+      ><h2>
+        {title}
+      </h2></a
+    >
   </div>
   <div class="dategrid">
     <p class="date">{pubDate?.toLocaleDateString()}</p>

@@ -4,9 +4,9 @@ const { frontmatter } = Astro.props;
 ---
 
 <Layout>
-  <h1 transition:name={`title-${Astro.url.pathname}`}>{frontmatter.title}</h1>
+  <h1 transition:name={`title-${Astro.url.pathname}`} data-pagefind-body data-pagefind-meta="title">{frontmatter.title}</h1>
   <p>{frontmatter.pubDate.toLocaleDateString()}</p>
-  <p><em>{frontmatter.description}</em></p>
+  <p data-pagefind-body  data-pagefind-meta="description"><em>{frontmatter.description}</em></p>
   <p>Written by: {frontmatter.author}</p>
   <img
     class="postimg"

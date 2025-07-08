@@ -1,10 +1,10 @@
 ---
-import { getBlogPagination, tags } from "../../utils/blog.js";
+import { getBlogPagination, tags, toSlug } from "../../utils/blog.js";
 import type { Page } from 'astro';
 import Layout from "../../layouts/Layout.astro";
 import BlogPost from "../../components/BlogPost.astro";
 import Pagination from "../../utils/widgets/Pagination.astro";
-import { toSlug } from "../../utils/blog.js";
+import SearchBar from "../../components/SearchBar.astro";
 
 
 export const prerender = true;
@@ -14,10 +14,13 @@ export async function getStaticPaths({paginate}) {
 }
 
 const { page } = Astro.props as { page: Page<any> };
+
+
 ---
 
 <Layout pageTitle="Blog">
-  <div class="catcon">
+  <SearchBar id="search" />
+  <div class="catcon" >
   {tags.map((tags) => (
     <p class="tags">
       <a href={`/tags/${toSlug(tags)}`}><button>{tags}</button></a>
@@ -25,6 +28,7 @@ const { page } = Astro.props as { page: Page<any> };
   ))
   }
   </div>
+  
 <div class="grid-container">
     {
       page.data.map((post) => (
@@ -35,11 +39,13 @@ const { page } = Astro.props as { page: Page<any> };
           description={post.data.description}
           pubDate={post.data.pubDate}
         />
-        <line class="line"></line>
+        <line class="mobile-line"></line>
       ))
     }
+   
 </div>
-  <Pagination page={page} />
+
+  <Pagination page={page}/>
   </Layout
 >
 

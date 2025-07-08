@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "dev": "astro dev --host 192.168.1.102",
-    "build": "astro build",
+    "build": "astro build && pagefind --site dist && cpx \"dist/pagefind/**/*\" public/pagefind",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -20,6 +20,7 @@
     "@tailwindcss/vite": "^4.1.11",
     "astro": "^5.11.0",
     "astro-icon": "^1.1.5",
+    "astro-pagefind": "^1.8.3",
     "autoprefixer": "^10.4.20",
     "cssnano": "^7.0.6",
     "dlx": "^0.2.1",
@@ -30,6 +31,7 @@
     "yarn": "^1.22.22"
   },
   "devDependencies": {
+    "cpx": "^1.5.0",
     "postcss": "^8.5.3",
     "postcss-preset-env": "^10.1.5"
   }
