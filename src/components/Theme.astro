@@ -1,89 +1,80 @@
 ---
 import "../styles/global.css";
 import { Icon } from "astro-icon/components";
+
+// Head içine yerleştirilecek script'i export edelim
+export const preloadTheme = `
+<script is:inline>
+  const theme = localStorage.getItem("theme") ?? "light";
+  document.documentElement.classList.toggle("dark", theme === "dark");
+  document.body.classList.toggle("dark", theme === "dark");
+</script>
+`;
 ---
 
-<button id="theme-switch">
-  <!--   <Icon name="dark-mode" />
-  <Icon name="light-mode" /> -->
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    height="24px"
-    viewBox="0 -960 960 960"
-    width="24px"
-    fill="#e3e3e3"
-    ><path
-      d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z"
-    ></path></svg
-  >
-
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    height="24px"
-    viewBox="0 -960 960 960"
-    width="24px"
-    fill="#e3e3e3"
-    ><path
-      d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z"
-    ></path></svg
-  >
+<button id="theme-toggle" aria-label="Change theme">
+    <span class="light-icon">
+        <Icon name="mdi:moon-waning-crescent" width="24" height="24" />
+    </span>
+    <span class="dark-icon">
+        <Icon name="mdi:white-balance-sunny" width="24" height="24" />
+    </span>
 </button>
 
-<style is:global lang="scss">
-  #theme-switch {
-    height: 50px;
-    width: 50px;
-    padding: 0 auto;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  #theme-switch svg {
-    fill: var(--text);
-  }
-  #theme-switch svg:first-child {
-    display: none;
-  }
-  .lightmode #theme-switch svg:first-child {
-    display: block;
-  }
-  .lightmode #theme-switch svg:last-child {
-    display: none;
-  }
+<style>
+    #theme-toggle {
+        color: var(--text);
+        transition: var(--trns);
+    }
+    .dark-icon {
+        display: none;
+    }
+    :global(.dark) .dark-icon {
+        display: inline-flex;
+    }
+    :global(.dark) .light-icon {
+        display: none;
+    }
 </style>
 
-
 <script>
-  const enableLightmode = () => {
-    document.documentElement.classList.add("lightmode");
-    localStorage.setItem("lightmode", "active");
-  };
+    function applyTheme() {
+        const body = document.body;
+        const theme = localStorage.getItem("theme");
 
-  const disableLightmode = () => {
-    document.documentElement.classList.remove("lightmode");
-    localStorage.setItem("lightmode", "inactive");
-  };
-  function setTheme(document) {
-    let lightmode = localStorage.getItem("lightmode");
-    if (lightmode === "active") {
-      document.documentElement.classList.add("lightmode");
-    } else {
-      document.documentElement.classList.remove("lightmode");
+        if (theme === "dark") {
+            document.documentElement.classList.add("dark");
+            body.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+            body.classList.remove("dark");
+        }
     }
-  }
-  setTheme(document);
 
-  document.addEventListener("astro:before-swap", (event) => {
-    setTheme(event.newDocument);
-  });
+    function setupToggle() {
+        const toggleBtn = document.getElementById("theme-toggle");
 
-  document.addEventListener("astro:page-load", () => {
-    const themeSwitch = document.getElementById("theme-switch");
+        if (!toggleBtn) return;
 
-    themeSwitch?.addEventListener("click", () => {
-      let lightmode = localStorage.getItem("lightmode");
-      lightmode !== "active" ? enableLightmode() : disableLightmode();
+        toggleBtn.addEventListener("click", () => {
+            const isDark = document.documentElement.classList.toggle("dark");
+            document.body.classList.toggle("dark", isDark);
+            
+            if (isDark) {
+                localStorage.setItem("theme", "dark");
+            } else {
+                localStorage.setItem("theme", "light");
+            }
+        });
+    }
+
+    document.addEventListener("astro:after-swap", () => {
+        applyTheme();
+        setupToggle();
     });
-  });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        applyTheme();
+        setupToggle();
+    });
 </script>

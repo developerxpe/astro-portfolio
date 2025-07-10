@@ -5,9 +5,10 @@ const { frontmatter } = Astro.props;
 
 <Layout>
   <h1 transition:name={`title-${Astro.url.pathname}`} data-pagefind-body data-pagefind-meta="title">{frontmatter.title}</h1>
-  <p>{frontmatter.pubDate.toLocaleDateString()}</p>
-  <p data-pagefind-body  data-pagefind-meta="description"><em>{frontmatter.description}</em></p>
-  <p>Written by: {frontmatter.author}</p>
+  <p data-page-find-body data-pagefind-meta="Tags">{frontmatter.tags.map(tag => tag.charAt(0).toUpperCase() + tag.slice(1)).join(', ')}</p>
+  <p data-pagefind-body data-pagefind-meta="Date">{frontmatter.pubDate.toLocaleDateString()}</p>
+  <p data-pagefind-body data-pagefind-meta="Description"><em>{frontmatter.description}</em></p>
+  <p data-pagefind-body data-pagefind-meta="Author">Written by: {frontmatter.author}</p>
   <img
     class="postimg"
     transition:name={`image-${Astro.url.pathname}`}
