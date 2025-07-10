@@ -6,7 +6,7 @@
     "defaults"
   ],
   "scripts": {
-    "dev": "astro dev --host 192.168.1.102",
+    "dev": "astro dev --host 192.168.1.123",
     "build": "astro build && pagefind --site dist && cpx \"dist/pagefind/**/*\" public/pagefind",
     "preview": "astro preview",
     "astro": "astro"

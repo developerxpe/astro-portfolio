@@ -23,6 +23,19 @@
   /* Transition */
   --trns: all 0.3s ease-in-out;
 
+  /* PageFind UI Variables */
+  --pagefind-ui-scale: 1;
+  --pagefind-ui-primary: #034ad8;
+  --pagefind-ui-text: var(--text);
+  --pagefind-ui-background: var(--bg-img);
+  --pagefind-ui-border: var(--bor2);
+  --pagefind-ui-tag: var(--button);
+  --pagefind-ui-border-width: 2px;
+  --pagefind-ui-border-radius: 8px;
+  --pagefind-ui-image-border-radius: 8px;
+  --pagefind-ui-image-box-ratio: 3 / 2;
+  --pagefind-ui-font: sans-serif;
+
   --font-weight-1: 100;
   --font-weight-2: 200;
   --font-weight-3: 300;
@@ -129,6 +142,12 @@ html.dark,
     --button: #232222;
     --button-hv: #3e3e3e;
     --bg-img: var(--gradient-8);
+    --pagefind-ui-primary: var(--text);
+    --pagefind-ui-text: var(--text);
+    --pagefind-ui-background: var(--bg-img);
+    --pagefind-ui-border: var(--bor2);
+    --pagefind-ui-tag: var(--text);
+
 }
 
 *,
@@ -260,4 +279,44 @@ p {
   font-size: var(--font-size-2);
   text-wrap-style: balance;
   overflow: hidden;
+}
+
+/* Pagefind UI özel stil düzenlemeleri */
+.pagefind-ui__search-input {
+  color: var(--text);
+  background-color: var(--button);
+/*   width: auto !important; */
+}
+
+.pagefind-ui__search-input:focus {
+  border: var(--bor2);
+}
+
+.pagefind-ui__search-input::placeholder {
+ opacity: 0.6 !important;
+}
+
+.pagefind-ui__form {
+  float: right;
+}
+
+.pagefind-ui__result-tag {
+  background-color: var(--button) !important;
+}
+
+.pagefind-ui__result {
+  padding: var(--size-3);
+
+}
+
+.pagefind-ui__result-title {
+  color: var(--text);
+}
+
+.pagefind-ui__result-excerpt {
+  display: none !important;
+}
+
+.pagefind-ui__message {
+  color: var(--text);
 }

@@ -10,63 +10,10 @@ const { id = "search" } = Astro.props;
       element: "#search",
       debounceTimeoutMs: 500,
       showSubResults: true,
-      resetStyles: true,
-      excerptLength: 15,
+      resetStyles: false,
+      showResultCount: true,
     });
-  };
+  }
 
-  document.addEventListener("astro:page-load", initPageFindUI);
+  document.addEventListener("astro:page-load",  initPageFindUI);
 </script>
-
-<style is:global>
-  --pagefind-ui-scale: 1;
-  --pagefind-ui-primary: #034ad8;
-  --pagefind-ui-text: #393939;
-  --pagefind-ui-background: #ffffff;
-  --pagefind-ui-border: #eeeeee;
-  --pagefind-ui-tag: #eeeeee;
-  --pagefind-ui-border-width: 2px;
-  --pagefind-ui-border-radius: 8px;
-  --pagefind-ui-image-border-radius: 8px;
-  --pagefind-ui-image-box-ratio: 3 / 2;
-  --pagefind-ui-font: sans-serif;
-
-  .lightmode {
-    --pagefind-ui-primary: #034ad8;
-    --pagefind-ui-text: #393939;
-    --pagefind-ui-background: #ffffff;
-    --pagefind-ui-border: #eeeeee;
-    --pagefind-ui-tag: #eeeeee;
-  }
-
-  /* Pagefind UI özel stil düzenlemeleri */
-  .pagefind-ui__search-input {
-    color: var(--text);
-    background-color: var(--button);
-    border: 1px solid var(--pagefind-ui-border);
-    transition: var(--trns);
-  }
-
-  .pagefind-ui__search-input:focus {
-    border-color: var(--pagefind-ui-primary);
-  }
-
-  .pagefind-ui__result {
-    padding: var(--size-3);
-    border-bottom: 1px solid var(--pagefind-ui-border);
-  }
-
-  .pagefind-ui__result-title {
-    color: var(--text-active);
-  }
-
-  .pagefind-ui__result-excerpt {
-    color: var(--text);
-  }
-
-  .pagefind-ui__message {
-    color: var(--text);
-  }
-</style>
-
-
