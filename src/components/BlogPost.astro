@@ -26,21 +26,21 @@ const { title, image, url, description, pubDate } = Astro.props;
   </div>
   <a href={url} class="aciklama"
     ><div><p>{description}</p></div>
-    <a href={url} class="gozat"><button>Göz At</button></a>
+    <a href={url} class="gozat"><button>Read More</button></a>
   </a>
-
-  <script>
-    document.addEventListener("astro:page-load", () => {
-      const images = document.querySelectorAll("img");
-      images.forEach((img) => {
-        img.onerror = function () {
-          this.onerror = null;
-          this.src = "/src/assets/fallback.png";
-        };
-      });
-    });
-  </script>
 </div>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const images = document.querySelectorAll("img");
+    images.forEach((img) => {
+      img.onerror = function () {
+        this.onerror = null;
+        this.src = "/src/assets/fallback.png";
+      };
+    });
+  });
+</script>
 
 <style lang="scss" is:global>
   .grid-container {
@@ -129,12 +129,12 @@ const { title, image, url, description, pubDate } = Astro.props;
       align-content: center;
       margin-right: 10px;
       display: inline;
-      font-size: var(--font-size-fluid-0);
       & button {
         color: var(--text);
         border: var(--bor2);
         padding: 5px 20px;
         margin-top: 20px;
+        font-size: var(--font-size-2);
       }
     }
   }

@@ -2,17 +2,14 @@
 import { ClientRouter } from "astro:transitions";
 import Route from "../Route.astro";
 /* import Theme from "../Theme.astro"; */
-import Themee from "../Theme.astro";
-
+import Theme from "../Theme.astro";
 ---
 
 <header>
   <div></div>
   <Route />
-<!--   <Theme /> -->
-   <Themee />
-<div></div>
-
+  <Theme />
+  <div></div>
 </header>
 <style>
   header {
@@ -22,11 +19,10 @@ import Themee from "../Theme.astro";
     column-gap: 1px;
     align-items: center;
     border: var(--bor);
-    
   }
   @container body (max-width: 768px) {
     header {
-      justify-content: space-between;
+      /* justify-content: space-between; */
     }
   }
   @container body (max-width: 480px) {

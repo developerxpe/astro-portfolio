@@ -1,19 +1,79 @@
 ---
-const { id = "search" } = Astro.props;
+const { id = "search-desktop" } = Astro.props;
 ---
 
 <div id={id}></div>
 <script>
   function initPageFindUI() {
-    // @ts-ignore
-    new PagefindUI({
-      element: "#search",
-      debounceTimeoutMs: 500,
-      showSubResults: true,
-      resetStyles: false,
-      showResultCount: true,
-    });
+    if (document.querySelector("#search-desktop")) {
+      // @ts-ignore
+      new PagefindUI({
+        element: "#search-desktop",
+        debounceTimeoutMs: 500,
+        showSubResults: true,
+        resetStyles: false,
+      });
+    }
+    if (document.querySelector("#search-mobile")) {
+      // @ts-ignore
+      new PagefindUI({
+        element: "#search-mobile",
+        debounceTimeoutMs: 500,
+        showSubResults: true,
+        resetStyles: false,
+      });
+    }
   }
 
-  document.addEventListener("astro:page-load",  initPageFindUI);
+  document.addEventListener("astro:page-load", () => {
+    const search = document.querySelector(
+      "#search-mobile"
+    ) as HTMLElement | null;
+    const searchBlog = document.querySelector(
+      ".pagefind-ui__search-input"
+    ) as HTMLInputElement | null;
+    const tags = document.querySelector(".tagscon") as HTMLElement | null;
+    const closeSearch = document.querySelector(
+      ".close-search"
+    ) as HTMLElement | null;
+
+    function resetSearch() {
+      // Null kontrolleri eklendi
+      if (search) search.classList.remove("active");
+      if (tags) tags.style.display = "flex";
+      if (closeSearch) closeSearch.style.display = "none";
+    }
+
+    function focusSearch() {
+      // Null kontrolleri eklendi
+      if (tags) tags.style.display = "none";
+      if (search) search.classList.add("active");
+      if (closeSearch) closeSearch.style.display = "flex";
+      if (searchBlog) searchBlog.focus();
+    }
+
+    function searchMobile() {
+      if (search && tags && closeSearch) {
+        search.addEventListener("click", () => {
+          focusSearch();
+        });
+      }
+    }
+
+    // başka bir yerde tıklandığında arama kapatılıyor
+    document.addEventListener("click", (e) => {
+      if (search && !search.contains(e.target as Node)) {
+        resetSearch();
+      }
+    });
+
+    // esc tuşuna basıldığında arama kapatılıyor
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") resetSearch();
+    });
+
+    searchMobile();
+  });
+
+  document.addEventListener("astro:page-load", initPageFindUI);
 </script>

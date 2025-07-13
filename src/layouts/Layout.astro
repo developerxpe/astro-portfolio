@@ -2,7 +2,7 @@
 import Header from "../components/global/Header.astro";
 import Footer from "../components/global/Footer.astro";
 import Card from "../components/Card.astro";
-import "src/styles/global.css";
+import "src/styles/global.scss";
 import { ClientRouter } from "astro:transitions";
 import { preloadTheme } from "../components/Theme.astro";
 
@@ -54,14 +54,14 @@ const { pageTitle = "My Blog", description = "A simple blog" } =
     border: var(--bor);
     & .main {
       width: var(--size-content-6);
-      /*     max-width: 100%; */
+      /* max-width: 100%; */
       height: auto;
       display: flex;
       flex-direction: column;
       gap: var(--size-2) 0;
     }
   }
-  @container body (max-width: 768px) {
+  @container body (max-width: 880px) {
     section {
       flex-wrap: wrap;
     }

@@ -19,15 +19,20 @@ const { page } = Astro.props as { page: Page<any> };
 ---
 
 <Layout pageTitle="Blog">
-  <div class="catcon" >
+    
+  <SearchBar/>
+  <div class="tags-container">
+    <div class="tagscon" >
   {tags.map((tags) => (
     <p class="tags">
       <a href={`/tags/${toSlug(tags)}`}><button>{tags}</button></a>
     </p>
   ))
   }
-  <SearchBar id="search" />
   </div>
+  <SearchBar id="search-mobile" data-astro-transition-persist="#search-mobile"/> <button class="close-search">✖</button>
+  </div>
+
   
 <div class="grid-container">
     {
@@ -50,23 +55,32 @@ const { page } = Astro.props as { page: Page<any> };
 >
 
 <style lang="scss" is:global>
-  .catcon {
+
+  .tags-container {
+     display: flex;
+    align-items: center; /* dikey ortalama */
+    justify-content: space-between; /* aralarını açar */
+    width: 100%;
+ 
+    & > .tagscon {
     display: inline-flex;
     overflow-x: scroll;
-    width: 100%;
     align-items: center;
+     width: 90%;
+    overflow-x: auto;
+    white-space: nowrap; 
      &::-webkit-scrollbar {
       display: none;
     }
     white-space: nowrap;
     & > .tags a button {
       color: var(--text);
+    } 
     }
-    
-  }
-  p.tags {
+  
+    p.tags {
     margin: 0.25rem;
-    padding: 0.4rem;
+    padding: 0.65rem;
     overflow: visible;
     width: auto;
     border: var(--bor2);
@@ -78,4 +92,20 @@ const { page } = Astro.props as { page: Page<any> };
       transition: var(--trns);
     }
   }
+  
+  }
+     @container body (min-width: 480px) {
+  #search-mobile, .close-search {
+    display: none !important;
+  }
+  .tagscon {
+    width: 100% !important;
+  }
+   }
+  @container body (max-width: 480px) {
+  #search-desktop {
+    display: none !important;
+  }
+  }
 </style>
+
