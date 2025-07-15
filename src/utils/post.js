@@ -52,13 +52,21 @@ export const tags = [
   ...new Set(allPosts.map((post) => post.data.tags).flat()),
 ];
 
-// Works projleri için fonksiyonlar
 export async function getSortedProjects() {
   return Projects
-    .filter((project) => project.pubDate)
     .sort(
-      (a, b) =>
-        new Date(b.pubDate).valueOf() - new Date(a.pubDate).valueOf()
+      (a, b) => {
+        if (a.date && b.date) {
+          return new Date(b.date).valueOf() - new Date(a.date).valueOf();
+        }
+        if (a.date && !b.date) {
+          return -1;
+        }
+        if (!a.date && b.date) {
+          return 1;
+        }
+        return 0;
+      }
     );
 }
 

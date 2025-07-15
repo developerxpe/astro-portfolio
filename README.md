@@ -46,22 +46,3 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## Changes per prompt
-
-**Works Tag Yapısı Düzeltildi:** blog.js'e works projeleri için ayrı fonksiyonlar eklendi, works.astro'da "object object" sorunu düzeltildi, tag yapısı ayrı section olarak eklendi, WorkPost.astro'da değişken isimleri netleştirildi.
-
-**Filter Undefined Hatası Düzeltildi:** blog.js'deki getSortedProjects fonksiyonunda parametre sorunu çözüldü, Projects import'u doğru kullanıldı, async/sync fonksiyon karışıklığı düzeltildi, works.astro yeniden oluşturuldu.
-
-**getStaticPaths Hatası Düzeltildi:** works tag sayfaları için getWorkTagsPagination fonksiyonu oluşturuldu, [slug]/[...page].astro dosyası düzeltildi, dinamik routing yapısı blog sayfalarına benzer şekilde kuruldu, CSS stilleri eklendi.
-
-**WorkPost Component Props Düzeltildi:** WorkPost component'i props olarak projects alacak şekilde düzeltildi, tag sayfalarında page.data filtrelenmiş projeler WorkPost'a geçirildi, mevcut yapı bozulmadan backward compatibility sağlandı.
-
-## File Analysis
-
-**Sistem Yapısı:**
-- `src/utils/blog.js` - Blog ve Works projeleri için ayrı fonksiyonlar içerir
-- `src/pages/works.astro` - Works projeleri ve taglerini listeler
-- `src/components/WorkPost.astro` - Proje kartlarını görüntüler  
-- `src/components/sections/Work.astro` - Proje verilerini içerir
-- Works ve Blog fonksiyonları birbiriyle karışmayacak şekilde ayrılmıştır

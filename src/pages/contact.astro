@@ -45,10 +45,11 @@ import { Info } from "../components/sections/Infos.astro";
           {
             Info.social.map((item: any) => (
               <li>
-                <Icon name={item.icon} class="contact-icons" />
                 {item.name ? (
+                <Icon name={item.icon} class="contact-icons" />
                 <a href={item.link}>{item.name}</a>
                 ) : (
+                   <Icon name="mdi:link" class="contact-icons" />
                   <a href="#">No Data</a>
                 )}
               </li>
@@ -72,12 +73,15 @@ import { Info } from "../components/sections/Infos.astro";
     }
     .contact-container {
       display: grid;
-      align-items: center;
+      align-items: start;
       grid-template-columns: repeat(2, 1fr);
       overflow: hidden;
       text-align: center;
       gap: 2rem;
       width: auto;
+      & .address {
+        align-self: center;
+      }
       & a {
         cursor: pointer;
       }

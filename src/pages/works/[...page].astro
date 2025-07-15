@@ -20,17 +20,64 @@ const { page } = Astro.props as { page: Page<any> };
     <div class="tagscon">
       {
         workTags.map((tag) => (
-          <p class="tags">
-            <a href={`/works/tags/${toSlug(tag)}`}>
+          <a href={`/works/tags/${toSlug(tag)}`}>
+            <p class="tags">
               <button>{tag}</button>
-            </a>
-          </p>
+            </p>
+          </a>
         ))
       }
     </div>
-    <div class="grid-container">
-      <WorkPost />
-    </div>
   </div>
+  <div class="grid-container">
+    <WorkPost projects={page.data} />
+  </div>
+
   <Pagination page={page} />
 </Layout>
+
+<style>
+  .tags-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    white-space: wrap;
+
+    & > .tagscon {
+      display: flex;
+      align-items: center;
+      /*       width: 90%; */
+      overflow-x: auto;
+      flex-wrap: wrap;
+      scroll-behavior: smooth;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      white-space: nowrap;
+      & a > .tags button {
+        color: var(--text);
+      }
+    }
+
+    & p.tags {
+      margin: 0.25rem;
+      padding: 0.65rem;
+      overflow: visible;
+      width: auto;
+      border: var(--bor2);
+      border-radius: var(--br);
+      flex-wrap: nowrap;
+      transition: var(--trns);
+      &:hover {
+        scale: 1.06;
+        transition: var(--trns);
+      }
+    }
+  }
+  @container body (max-width: 768px) {
+    .tags-container > .tagscon {
+      flex-wrap: nowrap;
+    }
+  }
+</style>

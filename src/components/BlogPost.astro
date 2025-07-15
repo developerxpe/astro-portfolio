@@ -103,6 +103,9 @@ const { title, image, url, description, pubDate } = Astro.props;
           grid-column: 1 / 3;
           display: flex;
           align-items: center;
+          & h2 {
+            font-size: var(--font-size-5);
+          }
         }
         & > .dategrid {
           grid-column: 3 / 4;
@@ -116,12 +119,18 @@ const { title, image, url, description, pubDate } = Astro.props;
           display: block;
           overflow-wrap: break-word;
           overflow: hidden;
+          & p {
+            font-size: var(--font-size-3);
+          }
         }
         & > .gozat {
           grid-column: 3 / 4;
           display: block;
           justify-self: end;
           align-self: end;
+          & button {
+            font-size: var(--font-size-3);
+          }
         }
       }
     }

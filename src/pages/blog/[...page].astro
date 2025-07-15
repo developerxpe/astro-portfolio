@@ -21,11 +21,11 @@ const { page } = Astro.props as { page: Page<any> };
     <div class="tagscon">
       {
         tags.map((tags) => (
-          <p class="tags">
-            <a href={`/blog/tags/${toSlug(tags)}`}>
+          <a href={`/blog/tags/${toSlug(tags)}`}>
+            <p class="tags">
               <button>{tags}</button>
-            </a>
-          </p>
+            </p>
+          </a>
         ))
       }
     </div>
@@ -72,7 +72,7 @@ const { page } = Astro.props as { page: Page<any> };
         display: none;
       }
       white-space: nowrap;
-      & > .tags a button {
+      & a > .tags > button {
         color: var(--text);
       }
     }

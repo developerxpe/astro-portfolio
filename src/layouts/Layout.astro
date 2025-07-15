@@ -5,6 +5,7 @@ import Card from "../components/Card.astro";
 import "src/styles/global.scss";
 import { ClientRouter } from "astro:transitions";
 import { preloadTheme } from "../components/Theme.astro";
+import Analytics from "@vercel/analytics/astro";
 
 interface Props {
   pageTitle?: string;
@@ -28,8 +29,9 @@ const { pageTitle = "My Blog", description = "A simple blog" } =
     <script src="/pagefind/pagefind-ui.js" is:inline></script>
     <Fragment set:html={preloadTheme} />
   </head>
-  <body
-    ><ClientRouter />
+  <body>
+    <Analytics />
+    <ClientRouter />
     <section>
       <Card />
       <div class="main">
@@ -51,7 +53,7 @@ const { pageTitle = "My Blog", description = "A simple blog" } =
     height: 50%;
     padding: 10px;
     gap: var(--size-3);
-   /*  border: var(--bor); */
+    /*  border: var(--bor); */
     & .main {
       width: var(--size-content-6);
       overflow: hidden;

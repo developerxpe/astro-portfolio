@@ -186,7 +186,7 @@ img {
   max-width: 50%;
   height: auto;
   aspect-ratio: 1 / 1;
-  object-fit: cover;
+  object-fit: contain;
 }
 .blogimg,
 .postimg {
@@ -344,7 +344,7 @@ p {
       cursor: pointer;
     }
     &.active {
-      width: 90%;
+      width: 88%;
       transition: var(--trns);
     }
   }
