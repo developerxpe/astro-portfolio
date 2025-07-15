@@ -4,19 +4,74 @@ const { frontmatter } = Astro.props;
 ---
 
 <Layout>
-  <h1 transition:name={`title-${Astro.url.pathname}`} data-pagefind-body data-pagefind-meta="title">{frontmatter.title}</h1>
-  <p data-page-find-body data-pagefind-meta="Tags">{frontmatter.tags.map(tag => tag.charAt(0).toUpperCase() + tag.slice(1)).join(', ')}</p>
-  <p data-pagefind-body data-pagefind-meta="Date">{frontmatter.pubDate.toLocaleDateString()}</p>
-  <p data-pagefind-body data-pagefind-meta="Description"><em>{frontmatter.description}</em></p>
-  <p data-pagefind-body data-pagefind-meta="Author">Written by: {frontmatter.author}</p>
-  <img
-    class="postimg"
-    transition:name={`image-${Astro.url.pathname}`}
-    src={frontmatter.image.url}
-    width="300"
-    alt={frontmatter.image.alt}
-  />
-  <slot />
+  <h1
+    transition:name={`title-${Astro.url.pathname}`}
+    data-pagefind-body
+    data-pagefind-meta="title"
+  >
+    {frontmatter.title}
+  </h1>
+  <p data-pagefind-body data-pagefind-meta="Description">
+    <em>{frontmatter.description}</em>
+  </p>
+  <div class="blog-meta">
+    <p data-page-find-body data-pagefind-meta="Tags">
+      {
+        frontmatter.tags
+          .map((tag) => tag.charAt(0).toUpperCase() + tag.slice(1))
+          .join(", ")
+      }
+    </p>
+    <p data-pagefind-body data-pagefind-meta="Date">
+      {frontmatter.pubDate.toLocaleDateString()}
+    </p>
+
+    <p data-pagefind-body data-pagefind-meta="Author">
+      Written by: {frontmatter.author}
+    </p>
+  </div>
+  <div class="blog-content">
+    <img
+      class="postimg"
+      transition:name={`image-${Astro.url.pathname}`}
+      src={frontmatter.image.url}
+      width="300"
+      alt={frontmatter.image.alt}
+    />
+    <slot />
+  </div>
 </Layout>
 
-
+<style lang="scss" is:global>
+  .blog-meta {
+    display: inline-flex;
+    align-items: center;
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 5px;
+    & p {
+      color: var(--text);
+      background-color: var(--brcolor);
+      padding: var(--size-2);
+      border-radius: var(--br);
+      overflow: visible;
+      width: auto;
+    }
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  .blog-content {
+    margin-top: 1rem;
+    & p {
+      text-align: justify;
+      line-height: 1;
+      overflow: visible !important;
+    }
+    & img.postimg {
+      float: right;
+      height: auto;
+      margin: 0 0 0.4rem 0.8rem;
+    }
+  }
+</style>

@@ -1,40 +1,42 @@
 ---
-import { getBlogPagination, tags, toSlug } from "../../utils/blog.js";
-import type { Page } from 'astro';
+import { getBlogPagination, tags, toSlug } from "../../utils/post.js";
+import type { Page } from "astro";
 import Layout from "../../layouts/Layout.astro";
 import BlogPost from "../../components/BlogPost.astro";
 import Pagination from "../../utils/widgets/Pagination.astro";
 import SearchBar from "../../components/SearchBar.astro";
 
-
 export const prerender = true;
 
-export async function getStaticPaths({paginate}) {
+export async function getStaticPaths({ paginate }) {
   return getBlogPagination(paginate);
 }
 
 const { page } = Astro.props as { page: Page<any> };
-
-
 ---
 
 <Layout pageTitle="Blog">
-    
-  <SearchBar/>
+  <SearchBar />
   <div class="tags-container">
-    <div class="tagscon" >
-  {tags.map((tags) => (
-    <p class="tags">
-      <a href={`/tags/${toSlug(tags)}`}><button>{tags}</button></a>
-    </p>
-  ))
-  }
-  </div>
-  <SearchBar id="search-mobile" data-astro-transition-persist="#search-mobile"/> <button class="close-search">✖</button>
+    <div class="tagscon">
+      {
+        tags.map((tags) => (
+          <p class="tags">
+            <a href={`/blog/tags/${toSlug(tags)}`}>
+              <button>{tags}</button>
+            </a>
+          </p>
+        ))
+      }
+    </div>
+    <SearchBar
+      id="search-mobile"
+      data-astro-transition-persist="#search-mobile"
+    />
+    <button class="close-search">✖</button>
   </div>
 
-  
-<div class="grid-container">
+  <div class="grid-container">
     {
       page.data.map((post) => (
         <BlogPost
@@ -44,68 +46,69 @@ const { page } = Astro.props as { page: Page<any> };
           description={post.data.description}
           pubDate={post.data.pubDate}
         />
-        <line class="mobile-line"></line>
       ))
     }
-   
-</div>
+  </div>
 
-  <Pagination page={page}/>
-  </Layout
->
+  <Pagination page={page} />
+</Layout>
 
 <style lang="scss" is:global>
-
   .tags-container {
-     display: flex;
-    align-items: center; /* dikey ortalama */
-    justify-content: space-between; /* aralarını açar */
-    width: 100%;
- 
-    & > .tagscon {
-    display: inline-flex;
-    overflow-x: scroll;
+    display: flex;
     align-items: center;
-     width: 90%;
-    overflow-x: auto;
-    white-space: nowrap; 
-     &::-webkit-scrollbar {
-      display: none;
+    justify-content: space-between;
+    width: 100%;
+    white-space: wrap;
+
+    & > .tagscon {
+      display: flex;
+      align-items: center;
+      width: 90%;
+      overflow-x: auto;
+      flex-wrap: wrap;
+      scroll-behavior: smooth;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      white-space: nowrap;
+      & > .tags a button {
+        color: var(--text);
+      }
     }
-    white-space: nowrap;
-    & > .tags a button {
-      color: var(--text);
-    } 
-    }
-  
+
     p.tags {
-    margin: 0.25rem;
-    padding: 0.65rem;
-    overflow: visible;
-    width: auto;
-    border: var(--bor2);
-    border-radius: var(--br);
-    flex-wrap: nowrap;
-    transition: var(--trns);
-    &:hover {
-      scale: 1.06;
+      margin: 0.25rem;
+      padding: 0.65rem;
+      overflow: visible;
+      width: auto;
+      border: var(--bor2);
+      border-radius: var(--br);
+      flex-wrap: nowrap;
       transition: var(--trns);
+      &:hover {
+        scale: 1.06;
+        transition: var(--trns);
+      }
     }
   }
-  
+  @container body (max-width: 768px) {
+    .tags-container > .tagscon {
+      flex-wrap: nowrap;
+    }
   }
-     @container body (min-width: 480px) {
-  #search-mobile, .close-search {
-    display: none !important;
+  @container body (min-width: 480px) {
+    #search-mobile,
+    .close-search {
+      display: none !important;
+    }
+    .tagscon {
+      width: 100% !important;
+    }
   }
-  .tagscon {
-    width: 100% !important;
-  }
-   }
   @container body (max-width: 480px) {
-  #search-desktop {
-    display: none !important;
-  }
+    #search-desktop {
+      display: none !important;
+    }
   }
 </style>
-

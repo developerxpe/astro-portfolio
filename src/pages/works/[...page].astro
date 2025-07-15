@@ -1,0 +1,36 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import WorkPost from "../../components/WorkPost.astro";
+import { getWorkTagsList, toSlug, getWorkPagination } from "@/utils/post.js";
+import Pagination from "../../utils/widgets/Pagination.astro";
+import type { Page } from "astro";
+
+export const prerender = true;
+
+export async function getStaticPaths({ paginate }) {
+  return getWorkPagination(paginate);
+}
+
+const workTags = getWorkTagsList();
+const { page } = Astro.props as { page: Page<any> };
+---
+
+<Layout pageTitle="Work">
+  <div class="tags-container">
+    <div class="tagscon">
+      {
+        workTags.map((tag) => (
+          <p class="tags">
+            <a href={`/works/tags/${toSlug(tag)}`}>
+              <button>{tag}</button>
+            </a>
+          </p>
+        ))
+      }
+    </div>
+    <div class="grid-container">
+      <WorkPost />
+    </div>
+  </div>
+  <Pagination page={page} />
+</Layout>

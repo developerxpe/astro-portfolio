@@ -1,0 +1,226 @@
+---
+import { Projects } from "../components/sections/Work.astro";
+const { projects = Projects } = Astro.props;
+---
+
+{
+  projects.map((project) => (
+    <div class="card">
+      <div class="resim">
+        <a href={project.url}>
+          <div class="dategrid">
+            <p class="date">{project.pubDate?.toLocaleDateString()}</p>
+          </div>
+          <img
+            class="blogimg"
+            src={project.image[0].url}
+            alt={project.image[0].alt}
+          />
+        </a>
+      </div>
+      <div class="baslik">
+          <h2>{project.title}</h2>
+      </div>
+      <div class="button-flex">
+        <div class="project-link">
+        {project.source ? (
+    <a href={project.source}>
+      <button>Go to Source</button>
+    </a>
+  ) : (
+    <button>No Data</button>
+  )}
+      </div>
+      <div class="visit">
+        {project.url ? (
+        <a href={project.url} >
+          <button>Visit</button>
+          </a>
+      ) : (
+        <button>No Data</button>
+      )}
+      </div>
+      
+      </div>
+    </div>
+    <line class="mobile-line"></line>
+  ))
+}
+
+<style lang="scss" is:inline>
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px 145px;
+    margin: 20px auto;
+   /*  width: 1000px; */
+    & > .card {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      grid-template-rows: auto auto auto;
+      gap: 10px 10px;
+      justify-self: center;
+      align-items: center;
+      width: 100%;
+      position: relative;
+     
+    
+      & > .resim {
+      grid-column: 1 / 2;
+      display: flex;
+      justify-self: center;
+      align-self: start;
+      place-items: center;
+      position: relative;
+      & img {
+        height: 300px;
+      }
+      }
+      & .dategrid {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--text);
+      color: var(--button);
+      padding: 5px;
+      border-radius: var(--br);
+      & .date {
+        font-size: var(--font-size-0);
+      }
+    }
+    & .baslik {
+      grid-row: 2 / 2;
+      display: block;
+      justify-self: start;
+      align-self: start;
+      overflow: hidden;
+      overflow-wrap: anywhere;
+    }
+      & .button-flex > .visit {
+        grid-row: 4 / 4;
+        display: block;
+        justify-self: end;
+        align-self: end;
+        overflow: hidden;
+        overflow-wrap: break-word;
+        & button {
+          color: var(--text);
+          border: var(--bor2);
+          padding: 5px 20px;
+          font-size: var(--font-size-2);
+          overflow-wrap: anywhere;
+          text-align: start;
+        }
+      }
+      & .button-flex > .project-link {
+        grid-row: 3 / 3;
+        display: block;
+        justify-self: end;
+        align-self: end;
+        overflow: hidden;
+        overflow-wrap: break-word;
+        & button {
+          color: var(--text);
+          border: var(--bor2);
+          padding: 5px 20px;
+          font-size: var(--font-size-2);
+          overflow-wrap: anywhere;
+        }
+      }
+       }
+  }
+  .button-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    align-self: end;
+  }
+
+  @container body (max-width: 768px) {
+    .grid-container {
+      grid-template-columns: repeat(1, 1fr);
+      gap: 10px;
+      & > .card {
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto auto;
+      gap: 10px 10px;
+      width: 100%;
+      position: relative;
+    
+    &  .resim {
+      grid-column: 1 / 2;
+      grid-row: 1 / 4;
+      display: flex;
+      justify-self: center;
+      align-self: start;
+      place-items: center;
+      position: relative;
+      & img {
+        height: auto;
+      }
+    }
+    & .baslik {
+      grid-column: 2 / 4;
+      grid-row: 1 / 3;
+      display: block;
+      justify-self: start;
+      align-self: start;
+      overflow: hidden;
+      overflow-wrap: anywhere;
+    }
+    
+    & .button-flex {
+      display: grid;
+      grid-column: 2 / 4;
+    }
+     &  .button-flex > .visit {
+      grid-column: 3 / 3;
+      display: block;
+      justify-self: end;
+      align-self: end;
+      overflow: hidden;
+      overflow-wrap: break-word;
+      & button {
+        color: var(--text);
+        border: var(--bor2);
+        padding: 5px 20px;
+        font-size: var(--font-size-2);
+        overflow-wrap: anywhere;
+        text-align: start;
+      }
+    }
+    & .button-flex > .project-link {
+      grid-column: 3 / 2;
+      grid-row: 4 / 5;
+      display: block;
+      justify-self: end;
+      align-self: end;
+      overflow: hidden;
+      overflow-wrap: break-word;
+      & button {
+        color: var(--text);
+        border: var(--bor2);
+        padding: 5px 20px;
+        font-size: var(--font-size-2);
+        overflow-wrap: anywhere;
+        text-align: start;
+      }
+    }
+    }
+    }
+  }
+  .mobile-line {
+    display: none;
+  }
+  @container body (max-width: 768px) {
+    .mobile-line {
+      display: inline;
+      background: var(--text);
+      width: 95%;
+      height: 0.1px;
+      justify-self: center;
+      opacity: 0.25;
+    }
+  }
+</style>

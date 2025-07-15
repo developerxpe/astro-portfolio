@@ -1,6 +1,123 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+import { Info } from "../components/sections/Infos.astro";
 ---
+
 <Layout pageTitle="Contact">
-contact
+  <h1 style="text-align: center; margin-top: 2rem;">Let's get in touch</h1>
+  <div class="contact-container-wrapper">
+    <div class="contact-container">
+      <div class="phone">
+        <Icon name="mdi:phone" class="contact-icons" />
+        <p>
+          <Icon name="mdi:phone" />&nbsp;
+          {Info.phone ? (
+          <a href={`tel:${Info.phone.replace(/\s+/g, "")}`}>{Info.phone}</a>
+          ) : (
+            <a href="#">No Data</a>
+          )}
+        </p>
+        <p>
+          <Icon name="mdi:whatsapp" />&nbsp;
+          {Info.whatsapp ? (
+          <a href={`https://wa.me/${Info.whatsapp.replace(/\s+/g, "")}`}
+            >{Info.whatsapp}</a
+          >
+          ) : (
+            <a href="#">No Data</a>
+          )}
+        </p>
+      </div>
+      <div class="mail">
+        <Icon name="mdi:email" class="contact-icons" />
+        <p>
+          <Icon name="mdi:email" />&nbsp;
+          {Info.mail ? (
+          <a href={`mailto:${Info.mail}`}>{Info.mail}</a>
+          ) : (
+            <a href="#">No Data</a>
+          )}
+        </p>
+      </div>
+      <div class="social">
+        <ul>
+          {
+            Info.social.map((item: any) => (
+              <li>
+                <Icon name={item.icon} class="contact-icons" />
+                {item.name ? (
+                <a href={item.link}>{item.name}</a>
+                ) : (
+                  <a href="#">No Data</a>
+                )}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="address">
+        <Icon name="mdi:map-marker-radius" class="contact-icons" />
+        {Info.address ? (
+        <p>{Info.address}</p>
+        ) : (<p>No Data</p>)}
+      </div>
+    </div>
+  </div>
+
+  <style lang="scss" is:global>
+    .contact-container-wrapper {
+      width: 80%;
+      align-self: center;
+    }
+    .contact-container {
+      display: grid;
+      align-items: center;
+      grid-template-columns: repeat(2, 1fr);
+      overflow: hidden;
+      text-align: center;
+      gap: 2rem;
+      width: auto;
+      & a {
+        cursor: pointer;
+      }
+      & .social {
+        place-self: center;
+        & ul {
+          display: flex;
+          flex-direction: column;
+          gap: inherit;
+          & li {
+            display: inline-flex;
+            align-items: center;
+          }
+        }
+      }
+      & p {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-self: center;
+        margin: 3px auto;
+        font-size: var(--font-size-3);
+        font-weight: 600;
+      }
+      & .contact-icons {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        align-self: center;
+        border: var(--bor2);
+        border-radius: var(--br);
+        margin: var(--size-2);
+        padding: 4px;
+        font-size: 30px;
+      }
+    }
+    @container body (max-width: 480px) {
+      .contact-container-wrapper {
+        width: 100%;
+      }
+    }
+  </style>
 </Layout>

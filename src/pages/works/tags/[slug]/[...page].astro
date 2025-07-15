@@ -1,0 +1,26 @@
+---
+import Layout from "../../../../layouts/Layout.astro";
+import WorkPost from "../../../../components/WorkPost.astro";
+import Pagination from "../../../../utils/widgets/Pagination.astro";
+import { getWorkTagsPagination } from "../../../../utils/post.js";
+
+export const prerender = true;
+
+export async function getStaticPaths({ paginate }) {
+  return getWorkTagsPagination(paginate);
+}
+
+const { page, works } = Astro.props;
+---
+
+<Layout pageTitle={`Works: ${works}`}>
+  <p>Projects tagged with {works}</p>
+  <div class="grid-container">
+    <WorkPost projects={page.data} />
+  </div>
+  <Pagination page={page} />
+</Layout>
+
+<style lang="scss" is:global>
+
+</style>

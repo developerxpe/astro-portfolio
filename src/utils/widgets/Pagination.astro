@@ -25,8 +25,48 @@ const { page } = Astro.props as { page: Page<any> };
 
 <style lang="scss" is:global>
   .pagination {
+    text-align: center;
     margin-top: auto;
-    justify-content: center;
-    align-items: end;
+    & button {
+      color: var(--text);
+      border: var(--bor2);
+      padding: 5px 20px;
+      width: 120px;
+    }
+  }
+
+  .page-indicator {
+    text-align: center;
+    margin: 0 auto 20px;
+    font-size: var(--font-size-2);
+    opacity: 0.8;
+
+    .current-page {
+      display: inline-block;
+      padding: 0 8px;
+      font-weight: bold;
+      color: var(--text);
+    }
+
+    .page-link {
+      display: inline-block;
+      padding: 0 8px;
+      text-decoration: none;
+      color: var(--text);
+      opacity: 0.7;
+      transition: opacity 0.2s ease;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &.active {
+        font-weight: bold;
+        opacity: 1;
+        color: var(--accent, #333);
+        cursor: default;
+        pointer-events: none;
+      }
+    }
   }
 </style>

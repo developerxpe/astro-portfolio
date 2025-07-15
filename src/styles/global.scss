@@ -13,10 +13,12 @@
   --button: #f0f0f0;
   --button-hv: #d9d9d9;
   --bg-img: var(--gradient-9);
+  --brcolor: #a1a1a185;
+
 
   /* Border */
   --bor: 1px solid red;
-  --bor2: 2px solid #a1a1a185;
+  --bor2: 2px solid var(--brcolor);
   --br: 8px;
 
   /* Transition */
@@ -141,6 +143,7 @@ html.dark,
   --button: #232222;
   --button-hv: #3e3e3e;
   --bg-img: var(--gradient-8);
+  --brcolor: #a1a1a185;
   --pagefind-ui-primary: var(--text);
   --pagefind-ui-text: var(--text);
   --pagefind-ui-background: var(--bg-img);
@@ -161,6 +164,8 @@ html {
   font-size: var(--font-size-fluid-0);
   scroll-behavior: smooth;
 }
+
+
 
 body {
   container-type: inline-size;
@@ -273,7 +278,6 @@ h3 {
 
 p {
   font-size: var(--font-size-2);
-  text-wrap-style: balance;
   overflow: hidden;
 }
 
@@ -340,7 +344,7 @@ p {
       cursor: pointer;
     }
     &.active {
-      width: 89%;
+      width: 90%;
       transition: var(--trns);
     }
   }
